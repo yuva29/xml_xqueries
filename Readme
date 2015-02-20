@@ -1,7 +1,7 @@
 Files included:
-company.xml		- XML 
-company.xsd 	- Schema
-company.xsl		- Stylesheet
+company.xml	- XML 
+company.xsd - Schema
+company.xsl	- Stylesheet
 
 query1.xquery
 query2.xquery
