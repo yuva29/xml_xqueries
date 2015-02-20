@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 sp2 (x64) (http://www.altova.com) by Yuva (None) -->
+<!-- xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns=" http://www.company.org" targetNamespace=" http://www.company.org" xmlns="http://www.company.org" elementFormDefault="qualified">-->
+
+<!--<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace=" http://www.company.org" xmlns="http://www.company.org" elementFormDefault="qualified">-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Company">
+		<xs:complexType>
+			<xs:sequence>
+			<xs:element name="Departments">
+			<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Department" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="deptId">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="[A-Z][A-Z][A-Z]"></xs:pattern>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="deptName" type="xs:string"></xs:element>
+							<xs:element name="deptAddr" type="xs:string"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				</xs:sequence>
+				</xs:complexType>
+				</xs:element>
+				<xs:element name="Employees" minOccurs="0">
+				<xs:complexType>
+				<xs:sequence>
+				<xs:element name="Employee" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="empId" type="xs:integer"></xs:element>
+							<xs:element name="empName" type="xs:string"></xs:element>
+							<xs:element name="empPhone">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="[0-9]{3}-[0-9]{3}-[0-9]{4}"></xs:pattern>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="empOffice"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			 	</xs:sequence>
+				</xs:complexType>
+				</xs:element>
+				<xs:element name="Divisions" minOccurs="0">
+				<xs:complexType>			
+				<xs:sequence>
+				<xs:element name="Division" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="divId" type="xs:string"></xs:element>
+							<xs:element name="divName" type="xs:string"></xs:element>
+							<xs:element name="divPhone">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="[0-9]{3}-[0-9]{3}-[0-9]{4}"></xs:pattern>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="housedDeptId" type="xs:string"></xs:element>
+							<xs:element name="managerEmpId" type="xs:integer"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+				</xs:complexType>
+				</xs:element>		
+				<xs:element name="WF" minOccurs="0">
+				<xs:complexType>
+				<xs:sequence>
+
+				<xs:element name="WorksFor" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="divId" type="xs:string"></xs:element>
+							<xs:element name="empId" type="xs:integer"></xs:element>
+							<xs:element name="percentTime" type="xs:integer"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				</xs:sequence>
+				</xs:complexType>				
+				</xs:element>		
+			</xs:sequence>
+		</xs:complexType>
+		<xs:key name="deptPK">
+			<xs:selector xpath="Departments/Department/deptId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:key>
+		<xs:key name="empPK">
+			<xs:selector xpath="Employees/Employee/empId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:key>
+		<xs:key name="divPK">
+			<xs:selector xpath="Divisions/Division/divId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:key>
+		<xs:keyref name="divDeptId" refer="deptPK">
+			<xs:selector xpath="Divisions/Division/housedDeptId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:keyref>
+		<xs:keyref name="divMgrId" refer="empPK">
+			<xs:selector xpath="Divisions/Division/managerEmpId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:keyref>
+		<xs:keyref name="wfDivId" refer="divPK">
+			<xs:selector xpath="WF/WorksFor/divId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:keyref>
+		<xs:keyref name="wfEmpId" refer="empPK">
+			<xs:selector xpath="WF/WorksFor/empId"></xs:selector>
+			<xs:field xpath="."></xs:field>
+		</xs:keyref>
+	</xs:element>
+</xs:schema>
